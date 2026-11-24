@@ -10,7 +10,8 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "node -e \"require('fs').rmSync('dist-test',{recursive:true,force:true})\"",
+    "test": "tsc --incremental false --outDir dist-test && node --test \"dist-test/**/*.test.js\""
   },
   "repository": {
     "type": "git",
@@ -35,11 +36,14 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.14.0",
     "@nestjs/common": "^12.6.0",
     "@nestjs/core": "^12.6.0",
     "@nestjs/platform-express": "^12.6.0",
+    "@nestjs/throttler": "^6.8.0",
     "mongodb": "^7.9.1",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.2"
+    "rxjs": "^7.8.2",
+    "zod": "^4.6.7"
   }
 }

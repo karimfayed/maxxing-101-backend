@@ -10,6 +10,7 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
+    "check:phrases": "npm run build && node dist/phrase-check/run.js",
     "pretest": "node -e \"require('fs').rmSync('dist-test',{recursive:true,force:true})\"",
     "test": "tsc --incremental false --outDir dist-test && node --test \"dist-test/**/*.test.js\""
   },

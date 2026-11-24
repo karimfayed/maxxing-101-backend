@@ -40,5 +40,12 @@ export function createMatcher(config: AppConfig): ClaudeMatcher {
     // No client at all: the SDK would otherwise look for other Claude credentials on the machine.
     return new ClaudeMatcher(null, claudeModel);
   }
-  return new ClaudeMatcher(new Anthropic({ apiKey, authToken: null }), claudeModel);
+  // Set here so the machine's ANTHROPIC_LOG and ANTHROPIC_BASE_URL can neither print the words nor redirect them.
+  const client = new Anthropic({
+    apiKey,
+    authToken: null,
+    baseURL: 'https://api.anthropic.com',
+    logLevel: 'off',
+  });
+  return new ClaudeMatcher(client, claudeModel);
 }
